@@ -1,5 +1,3 @@
-from golomb import golomb_encode
-from parallel_golomb import parallel_golomb_encode
 from performance_comparison import measure_performance
 
 
