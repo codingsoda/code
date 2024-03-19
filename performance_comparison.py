@@ -1,5 +1,5 @@
 import time
-from golomb import golomb_encoding
+from golomb import golomb_encoding, golomb_decoding
 from parallel_golomb import parallel_golomb_encode
 
 
@@ -10,19 +10,21 @@ def measure_performance(numbers, m):
     :param m: The divisor for Golomb coding.
     :return: A tuple containing execution times for original and parallel methods.
     """
-    # Measure performance of original Golomb coding
+    # Measure performance of original Golomb encoding
     start_time = time.time()
     single = golomb_encoding(numbers, m)
-    original_time = time.time() - start_time
+    original_encoding_time = time.time() - start_time
 
-    # Measure performance of parallel Golomb coding
+    # Measure performance of parallel Golomb encoding
     start_time = time.time()
     multi = parallel_golomb_encode(numbers, m)
-    parallel_time = time.time() - start_time
+    parallel_encoding_time = time.time() - start_time
 
     assert single == multi
+    assert single.tobytes() == multi.tobytes()
+    assert tuple(golomb_decoding(single, m)) == tuple(numbers)
 
-    return original_time, parallel_time
+    return original_encoding_time, parallel_encoding_time
 
 # Example usage:
 # numbers = [9, 14, 28, 35] * 100  # Example list of numbers, repeated to get a significant time difference

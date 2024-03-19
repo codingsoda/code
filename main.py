@@ -7,10 +7,10 @@ def main():
     m = 4
 
     # Measure and display performance comparison
-    original_time, parallel_time = measure_performance(numbers, m)
+    original_encoding_time, parallel_encoding_time = measure_performance(numbers, m)
     print("\nPerformance comparison for the full dataset:")
-    print(f"Original Golomb coding time: {original_time:.6f} seconds")
-    print(f"Parallel Golomb coding time: {parallel_time:.6f} seconds")
+    print(f"Original Golomb coding time: {original_encoding_time:.6f} seconds")
+    print(f"Parallel Golomb coding time: {parallel_encoding_time:.6f} seconds")
 
 
 if __name__ == "__main__":
