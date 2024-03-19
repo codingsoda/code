@@ -1,5 +1,5 @@
 import time
-from golomb import golomb_encode
+from golomb import golomb_encoding
 from parallel_golomb import parallel_golomb_encode
 
 
@@ -12,14 +12,15 @@ def measure_performance(numbers, m):
     """
     # Measure performance of original Golomb coding
     start_time = time.time()
-    for n in numbers:
-        golomb_encode(n, m)
+    single = golomb_encoding(numbers, m)
     original_time = time.time() - start_time
 
     # Measure performance of parallel Golomb coding
     start_time = time.time()
-    parallel_golomb_encode(numbers, m)
+    multi = parallel_golomb_encode(numbers, m)
     parallel_time = time.time() - start_time
+
+    assert single == multi
 
     return original_time, parallel_time
 

@@ -5,7 +5,7 @@ from performance_comparison import measure_performance
 
 def main():
     # Define a much larger list of numbers to encode and the divisor m
-    numbers = list(range(100000))  # A larger list with 100,000 numbers
+    numbers = list(range(80000))  # A larger list with 100,000 numbers
     m = 4
 
     # Measure and display performance comparison
