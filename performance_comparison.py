@@ -14,6 +14,8 @@ def measure_performance(numbers, m):
     start_time = time.time()
     single = golomb_encoding(numbers, m)
     original_encoding_time = time.time() - start_time
+    
+    print("compression ratio: ", len(numbers) * 32 / len(single))
 
     # Measure performance of parallel Golomb encoding
     start_time = time.time()

@@ -41,7 +41,7 @@ def golomb_decoding(bits, m):
     return numbers
 
 # Example usage:
-# print(bitarray(golomb_encode(9, 2)))  # Output should match the example given for G4(9) in the images
+# print(bitarray(golomb_encode(9999, 9999)))  # Output should match the example given for G4(9) in the images
 # print(golomb_encoding([9], 2))
 # print(golomb_decoding(bitarray('11001'), 2))
 
