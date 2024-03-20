@@ -38,9 +38,11 @@ def main(image_path, num_processes, k):
 
 
 if __name__ == "__main__":
-    for num_processes in (2, 4, 8):
+    num_processes = 2
+    while num_processes <= multiprocessing.cpu_count():
         for k in range(10):
             image = "pexels-pok-rie-982263.jpg"
             print("processes: ", num_processes, " M: ", 2 ** k)
             main(image, num_processes, k)
             print("--------------------")
+        num_processes *= 2
