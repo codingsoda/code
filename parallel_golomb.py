@@ -1,6 +1,6 @@
 import multiprocessing
 from concurrent.futures import ProcessPoolExecutor
-from golomb import golomb_encoding, golomb_decode
+from golomb import golomb_encoding, golomb_decode, get_block
 from bitarray import bitarray
 
 def parallel_golomb_encoding_worker(args):
@@ -32,15 +32,12 @@ def parallel_golomb_encode(numbers, m, chunk_size):
             ret.extend(result)
         return ret
 
-def parallel_golomb_decode(bits, m, lengthBit = 32):
-
+def parallel_golomb_decode(bits, m):
     numbers = []
     i = 0
     while i < len(bits):
-        length = int(bits[i:i+lengthBit].to01(), 2)
-        i += lengthBit
-        numbers.append(bits[i:i +length])
-        i += length
+        block, i = get_block(bits, i)
+        numbers.append(block)
 
     # print("len(numbers)", len(numbers))
     num_processes = multiprocessing.cpu_count()

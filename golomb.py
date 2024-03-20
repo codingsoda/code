@@ -1,19 +1,37 @@
 from bitarray import bitarray
 
-def golomb_encoding(numbers, m, chunk_size, lengthBit = 32):
+LENGTH_TYPE = {"00": 8, "01": 16, "10": 32, "11": 64}
+
+def extend_chunk(bits, chunk):
+    length = len(chunk)
+    if length <= 0: return
+    if length <= 256:
+        bits.extend("00")
+        bits.extend(f"{length:08b}")
+    elif length <= 65536:
+        bits.extend("01")
+        bits.extend(f"{length:016b}")
+    elif length <= 4294967296:
+        bits.extend("10")
+        bits.extend(f"{length:032b}")
+    else:
+        assert length <= 18446744073709551616
+        bits.extend("11")
+        bits.extend(f"{length:064b}")
+    
+    bits.extend(chunk)
+
+def golomb_encoding(numbers, m, chunk_size):
     bits = bitarray()
 
     chunk = bitarray()
     for i, number in enumerate(numbers):
         if i != 0 and i % chunk_size == 0:
-            bits.extend(f"{len(chunk):0{lengthBit}b}")
-            bits.extend(chunk)
+            extend_chunk(bits, chunk)
             chunk.clear()
         chunk.extend(golomb_encode(number, m))
     
-    if len(chunk) > 0:
-        bits.extend(f"{len(chunk):0{lengthBit}b}")
-        bits.extend(chunk)
+    extend_chunk(bits, chunk)
 
     return bits
 
@@ -28,14 +46,19 @@ def golomb_encode(number, m):
     for ii in range(m-1, -1, -1):    # most significant bit first
         yield 1 if rr & (1 << ii) else 0
 
-def golomb_decoding(bits, m, lengthBit = 32):
+def get_block(bits, i):
+    lengthBit = LENGTH_TYPE[bits[i:i+2].to01()]
+    i += 2
+    length = int(bits[i:i+lengthBit].to01(), 2)
+    i += lengthBit
+    return bits[i:i +length], i + length
+
+def golomb_decoding(bits, m):
     ret = []
     i = 0
     while i < len(bits):
-        length = int(bits[i:i+lengthBit].to01(), 2)
-        i += lengthBit
-        ret.extend(golomb_decode(bits[i:i +length], m))
-        i += length
+        block, i = get_block(bits, i)
+        ret.extend(golomb_decode(block, m))
     return ret
 
 def golomb_decode(bits, m):
