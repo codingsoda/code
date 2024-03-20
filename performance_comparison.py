@@ -15,6 +15,10 @@ def measure_performance(numbers, m, chunk_size):
     single = golomb_encoding(numbers, m, chunk_size)
     original_encoding_time = time.time() - start_time
 
+    print("length of interger bytes: ", len(numbers) * 4)
+    print("length of bytes: ", len(single)/8)
+    print("compression ratio: ", (len(numbers) * 32) / len(single))
+
     # Measure performance of parallel Golomb encoding
     start_time = time.time()
     multi = parallel_golomb_encode(numbers, m, chunk_size)
