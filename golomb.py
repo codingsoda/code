@@ -68,6 +68,10 @@ if __name__ == "__main__":
     print(bitarray(golomb_encode(11, 2)))  # Output should match the example given for G4(9) in the images
     # print(golomb_encoding([9], 2))
     # print(golomb_decoding(bitarray('11001'), 2))
+    # Example usage:
+    # print(bitarray(golomb_encode(9999, 9999)))  # Output should match the example given for G4(9) in the images
+    # print(golomb_encoding([9], 2))
+    # print(golomb_decoding(bitarray('11001'), 2))
 
     print(golomb_encoding([9, 10, 11], 2, 1))
     print(golomb_decoding(bitarray('000000000000010111001000000000000010111010000000000000010111011'), 2))

@@ -14,6 +14,8 @@ def measure_performance(numbers, m, chunk_size):
     start_time = time.time()
     single = golomb_encoding(numbers, m, chunk_size)
     original_encoding_time = time.time() - start_time
+    
+    print("compression ratio: ", len(numbers) * 32 / len(single))
 
     print("length of interger bytes: ", len(numbers) * 4)
     print("length of bytes: ", len(single)/8)
