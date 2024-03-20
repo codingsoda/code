@@ -20,12 +20,12 @@ def main():
             rgb = image.getpixel((x, y))
             data.extend(rgb)
     
-    m = 8
+    k = 8
 
     chunk_size = (len(data) + num_processes - 1) // num_processes
 
     # Measure and display performance comparison
-    original_encoding_time, original_decoding_time, parallel_encoding_time, parallel_decoding_time = measure_performance(data, m, chunk_size)
+    original_encoding_time, original_decoding_time, parallel_encoding_time, parallel_decoding_time = measure_performance(data, k, chunk_size)
 
     print("\nPerformance comparison for the full dataset:")
     print(f"Original Golomb encoding time: {original_encoding_time:.6f} seconds")

@@ -21,7 +21,7 @@ def extend_chunk(bits, chunk):
     
     bits.extend(chunk)
 
-def golomb_encoding(numbers, m, chunk_size):
+def golomb_encoding(numbers, k, chunk_size):
     bits = bitarray()
 
     chunk = bitarray()
@@ -29,21 +29,21 @@ def golomb_encoding(numbers, m, chunk_size):
         if i != 0 and i % chunk_size == 0:
             extend_chunk(bits, chunk)
             chunk.clear()
-        chunk.extend(golomb_encode(number, m))
+        chunk.extend(golomb_encode(number, k))
     
     extend_chunk(bits, chunk)
 
     return bits
 
-def golomb_encode(number, m):
+def golomb_encode(number, k):
     "Yields a sequence of bits Golomb-coding the number with divisor 2**bits."
-    qq, rr = divmod(number, 2**m)
+    qq, rr = divmod(number, 2**k)
 
     for ii in range(qq):
         yield 1
     yield 0
 
-    for ii in range(m-1, -1, -1):    # most significant bit first
+    for ii in range(k-1, -1, -1):    # most significant bit first
         yield 1 if rr & (1 << ii) else 0
 
 def get_block(bits, i):
@@ -53,17 +53,19 @@ def get_block(bits, i):
     i += lengthBit
     return bits[i:i +length], i + length
 
-def golomb_decoding(bits, m):
+def golomb_decoding(bits, k):
     ret = []
     i = 0
     while i < len(bits):
         block, i = get_block(bits, i)
-        ret.extend(golomb_decode(block, m))
+        ret.extend(golomb_decode(block, k))
     return ret
 
-def golomb_decode(bits, m):
+def golomb_decode(bits, k):
     numbers = []
     idx = 0
+
+    m = 2**k
 
     while idx < len(bits):
         qq = 0
@@ -77,11 +79,11 @@ def golomb_decode(bits, m):
         if bits[idx] == 0:
             idx += 1
             rr = 0
-            for ii in range(m-1, -1, -1):
+            for ii in range(k-1, -1, -1):
                 if idx < len(bits):
                     rr |= (bits[idx] << ii)
                     idx += 1
-            numbers.append(qq * (2**m) + rr)
+            numbers.append(qq * m + rr)
     return numbers
 
 if __name__ == "__main__":
