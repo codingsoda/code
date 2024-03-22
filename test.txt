@@ -1,0 +1,63 @@
+processes:  2  M:  32
+width, height: 2048 1328
+chunk_size:  4079616
+compression ratio:  3.3658206766825844
+Speedup for encoding:  1.843814366319893
+Speedup for decoding:  1.814236361592123
+--------------------
+processes:  2  M:  64
+width, height: 2048 1328
+chunk_size:  4079616
+compression ratio:  3.776828650323662
+Speedup for encoding:  1.832728961573567
+Speedup for decoding:  1.8737400425332278
+--------------------
+processes:  2  M:  128
+width, height: 2048 1328
+chunk_size:  4079616
+compression ratio:  3.7718491949835635
+Speedup for encoding:  1.7656769479512675
+Speedup for decoding:  1.8699748854588254
+--------------------
+processes:  4  M:  32
+width, height: 2048 1328
+chunk_size:  2039808
+compression ratio:  3.365817726212472
+Speedup for encoding:  3.0751389572285093
+Speedup for decoding:  3.3994042707172403
+--------------------
+processes:  4  M:  64
+width, height: 2048 1328
+chunk_size:  2039808
+compression ratio:  3.7768249352811405
+Speedup for encoding:  3.1417673754963813
+Speedup for decoding:  3.4317709803704792
+--------------------
+processes:  4  M:  128
+width, height: 2048 1328
+chunk_size:  2039808
+compression ratio:  3.7718454897305698
+Speedup for encoding:  3.3770276987844916
+Speedup for decoding:  3.441631620974831
+--------------------
+processes:  8  M:  32
+width, height: 2048 1328
+chunk_size:  1019904
+compression ratio:  3.3658118252877656
+Speedup for encoding:  3.871912624446645
+Speedup for decoding:  4.435080938388413
+--------------------
+processes:  8  M:  64
+width, height: 2048 1328
+chunk_size:  1019904
+compression ratio:  3.776817505218023
+Speedup for encoding:  3.9456497279861384
+Speedup for decoding:  4.095084830250905
+--------------------
+processes:  8  M:  128
+width, height: 2048 1328
+chunk_size:  1019904
+compression ratio:  3.7718380792464212
+Speedup for encoding:  4.0405646920610465
+Speedup for decoding:  4.321924743372251
+--------------------
